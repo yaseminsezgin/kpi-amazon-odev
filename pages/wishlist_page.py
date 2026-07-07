@@ -10,7 +10,7 @@ from pages.base_page import BasePage, WAIT_TIMEOUT
 
 
 class WishListPage(BasePage):
-    ACCOUNT_LINK = (By.ID, "nav-link-accountList")
+    # ACCOUNT_LINK, BasePage'ten miras alınır (ortak üst-navigasyon locator'ı).
     DIRECT_URL = "https://www.amazon.com/hz/wishlist/ls"
 
     ITEM_PRESENT = (By.CSS_SELECTOR, "[id^='itemName_'], .g-item-sortable")
@@ -96,12 +96,7 @@ class WishListPage(BasePage):
         self.scroll_into_view(target)
         time.sleep(1)
 
-        del_btn = None
-        for by, sel in self.DELETE_BUTTONS:
-            found = target.find_elements(by, sel)
-            if found:
-                del_btn = found[0]
-                break
+        del_btn = self.find_first(self.DELETE_BUTTONS, root=target)
         assert del_btn is not None, "'Delete' butonu bulunamadı."
 
         self.safe_click(del_btn)

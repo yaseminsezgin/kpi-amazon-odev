@@ -11,7 +11,7 @@ from pages.base_page import BasePage, MANUAL_WAIT
 
 
 class LoginPage(BasePage):
-    ACCOUNT_LINK = (By.ID, "nav-link-accountList")
+    # ACCOUNT_LINK, BasePage'ten miras alınır (ortak üst-navigasyon locator'ı).
 
     # Amazon'un YENİ birleşik giriş ekranında e-posta alanı 'ap_email' değil
     # 'ap_email_login' olabilir; eski akışta 'ap_email'. Hepsini dene.

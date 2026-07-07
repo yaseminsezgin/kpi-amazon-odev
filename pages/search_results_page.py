@@ -73,13 +73,8 @@ class SearchResultsPage(BasePage):
         self.scroll_into_view(item)
         time.sleep(1)
 
-        # Kart üzerinde 'Add to List' butonu var mı?
-        card_btn = None
-        for by, sel in self.CARD_ADD_BUTTONS:
-            found = item.find_elements(by, sel)
-            if found:
-                card_btn = found[0]
-                break
+        # Kart üzerinde 'Add to List' butonu var mı? (kart öğesinin altında ara)
+        card_btn = self.find_first(self.CARD_ADD_BUTTONS, root=item)
 
         product = ProductPage(self.driver)
         if card_btn is not None:

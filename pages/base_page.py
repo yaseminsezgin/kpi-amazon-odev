@@ -45,6 +45,9 @@ def build_driver():
 class BasePage:
     """Tüm sayfa nesnelerinin ortak atası."""
 
+    # Üst navigasyondaki 'Account & Lists' linki — birden çok sayfa kullanır.
+    ACCOUNT_LINK = (By.ID, "nav-link-accountList")
+
     def __init__(self, driver):
         self.driver = driver
 
@@ -69,6 +72,17 @@ class BasePage:
                         return el
             return False
         return WebDriverWait(self.driver, timeout).until(_locate)
+
+    def find_first(self, candidates, root=None):
+        """Adaylardan ilk EŞLEŞEN (By, selector) öğeyi döndürür. root verilirse o
+        öğenin ALTINDA, verilmezse tüm sayfada arar. Bulunamazsa None döner.
+        (Görünürlük filtresi uygulamaz; kart/satır içi ilk eşleşmeyi bulmak için.)"""
+        scope = root if root is not None else self.driver
+        for by, sel in candidates:
+            found = scope.find_elements(by, sel)
+            if found:
+                return found[0]
+        return None
 
     # ----------------------------- Eylemler ------------------------------- #
     def click_first(self, candidates):
