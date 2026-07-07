@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Environment / credentials
+.env
+*.env
+
+# Test tanılama çıktıları (ekran görüntüleri, sayfa kaynakları)
+diag/
+
+# OS
+.DS_Store
